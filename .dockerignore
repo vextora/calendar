@@ -8,6 +8,11 @@ main
 *.dylib
 *.test
 
+# Env
+.env
+.env.development
+.env.override
+
 # Output dari build Go
 *.out
 
