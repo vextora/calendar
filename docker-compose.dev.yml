@@ -1,0 +1,133 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: oncom_api
+    env_file:
+      - .env.development
+    environment:
+      - ENV=development
+    volumes:
+      - .:/app
+      - go-mod:/go/pkg/mod
+      - logs-volume:/var/log/oncomapi
+    working_dir: /app
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    depends_on:
+      - db
+    networks:
+      - app-network
+    restart: unless-stopped
+  
+  db:
+    image: postgres:13
+    container_name: oncom_api_db
+    env_file:
+      - .env.development
+    environment:
+      - POSTGRES_USER=${POSTGRE_DB_USER}
+      - POSTGRES_PASSWORD=${POSTGRE_DB_PASSWORD}
+      - POSTGRES_DB=${POSTGRE_DB_NAME}
+    ports:
+      - "${POSTGRE_DB_PORT}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # Loki service (for log storage)
+  loki:
+    image: grafana/loki:2.9.4
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-config.yaml:/etc/loki/loki-config.yaml
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # Promtail service (to collect logs)
+  promtail:
+    image: grafana/promtail:2.9.4
+    container_name: promtail
+    volumes:
+      - ./promtail-config.yaml:/etc/promtail/promtail.yaml
+      - logs-volume:/var/log/oncomapi
+    command: -config.file=/etc/promtail/promtail.yaml
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # Prometheus
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # Tempo (for tracing)
+  tempo:
+    image: grafana/tempo:latest
+    container_name: tempo
+    ports:
+      - "3200:3200"
+    command: ["--config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml
+      - ./tempo-data:/tmp/tempo
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # Otel Collector
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: otel_collector
+    command: ["--config=/etc/otel-collector.yaml"]
+    volumes:
+      - ./otel-collector.yaml:/etc/otel-collector.yaml
+    ports:
+      - "4318:4318"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # Grafana (for visualization)
+  grafana:
+    image: grafana/grafana:10.2.3
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_LOG_MODE=file
+      - GF_LOG_LEVEL=info
+      - GF_LOG_FILE=/var/log/grafana/grafana.log
+    networks:
+      - app-network
+    volumes:
+      - grafana-logs:/var/log/grafana
+      - grafana-storage:/var/lib/grafana
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  go-mod:
+  pgdata:
+  grafana-storage:
+  grafana-logs:
+  logs-volume:
+  air_tmp:

@@ -1,0 +1,37 @@
+# Binaries
+main
+#tmp/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Output dari build Go
+*.out
+
+# Cache Go
+/pkg
+/go/pkg
+/go/bin
+
+# Git
+.git
+.gitignore
+
+# Node (kalau kamu punya frontend di repo yang sama)
+node_modules/
+
+# Editor * sistem
+.DS_Store
+.vscode/
+.idea/
+
+# Air temporary files
+# .air
+# .air.toml
+
+# Docker
+Dockerfile*
+docker-compose*.yml

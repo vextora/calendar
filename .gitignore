@@ -1,0 +1,49 @@
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Binary output folder
+/tmp/
+tmp/
+
+# Output dari `go test` coverage
+coverage.out
+
+# Modul vendored
+vendor/
+
+# IDE/editor config
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log files
+*.log
+
+# Air (live reload) artifacts
+.air
+.air.toml
+.air-*
+
+# Docker
+docker-compose.override.yml
+
+# Build cache atau hasil build lokal
+build/
+
+# Github Actions artifacts
+*.artifact.*
+
+# Data dari Tempo, Loki, Promtal, dsb
+tempo-data/
+loki-data/
+promtail-data/
+
+# Editor backup files
+*~
