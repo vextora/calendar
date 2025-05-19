@@ -5,7 +5,7 @@ import (
 	"oncomapi/pkg/config"
 	"time"
 
-	"github.com/golang-jwt/jwt/v5"
+	jwtlib "github.com/golang-jwt/jwt/v5"
 )
 
 var (
@@ -30,9 +30,9 @@ func GenerateToken(userID int) (string, error) {
 	loadEnv()
 	claims := CustomClaims{
 		UserID: userID,
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(tokenExpired) * time.Minute)),
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
+		RegisteredClaims: jwtlib.RegisteredClaims{
+			ExpiresAt: jwtlib.NewNumericDate(time.Now().Add(time.Duration(tokenExpired) * time.Minute)),
+			IssuedAt:  jwtlib.NewNumericDate(time.Now()),
 			Issuer:    appName,
 		},
 	}
@@ -40,13 +40,13 @@ func GenerateToken(userID int) (string, error) {
 	//logs.Debug("waktu duration : ", time.Now().Add(time.Duration(tokenExpired)*time.Hour))
 	//logs.Debug("claims : %+v\n", claims)
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token := jwtlib.NewWithClaims(jwtlib.SigningMethodHS256, claims)
 	return token.SignedString(secretKey)
 }
 
 func ValidateToken(tokenStr string) (*CustomClaims, error) {
 	loadEnv()
-	token, err := jwt.ParseWithClaims(tokenStr, &CustomClaims{}, func(t *jwt.Token) (interface{}, error) {
+	token, err := jwtlib.ParseWithClaims(tokenStr, &CustomClaims{}, func(t *jwtlib.Token) (interface{}, error) {
 		return secretKey, nil
 	})
 
