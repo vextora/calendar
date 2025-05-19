@@ -74,7 +74,7 @@ jobs:
       - name: Run golangci-lint
         run: |
           export PATH=$PATH:~/bin
-          golangci-lint run --verbose --debug --out-format=github-actions ./pkg/... ./internal/... ./middleware/... ./cmd/... --timeout=5m
+          golangci-lint run --verbose ./pkg/... ./internal/... ./middleware/... ./cmd/... --timeout=5m
 
       - name: Run tests with coverage
         run: go test -v -coverprofile=coverage.out ./...
