@@ -16,5 +16,5 @@ jobs:
 
     - name: Build and push image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/oncomapi:dev -f Dockerfile.dev .
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/oncomapi:dev -f Dockerfile.dev.sample .
         docker push ${{ secrets.DOCKER_USERNAME }}/oncomapi:dev
