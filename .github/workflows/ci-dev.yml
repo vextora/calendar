@@ -64,15 +64,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-golangci-lint-cache
 
-      - name: Install golangci-lint
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: v1.58.2
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install golangci-lint manually
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $GOPATH/bin v1.58.2
 
       - name: Run golangci-lint
-        run: |
-          golangci-lint run --verbose --out-format=github-actions ./...
+        run: golangci-lint run --verbose --out-format=github-actions ./...
 
       - name: Run tests with coverage
         run: go test -v -coverprofile=coverage.out ./...
