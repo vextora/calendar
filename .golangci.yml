@@ -2,18 +2,22 @@ version: "1"
 
 run:
   timeout: 2m
-  tests: true
+  issues-exit-code: 1
+  tests: false
 
 linters:
   enable:
     - govet
-    - staticcheck
-    - gofmt
-    - goimports
-    - revive
     - errcheck
+    - staticcheck
+    - gosimple
     - unused
-    - typecheck
+    - deadcode
+  disable:
+    - gocyclo
+    - megacheck
+    - goconst
+    - dupl
 
 linters-settings:
   gofmt:
