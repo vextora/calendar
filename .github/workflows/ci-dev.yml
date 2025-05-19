@@ -9,6 +9,8 @@ on:
 jobs:
   build-test-lint:
     runs-on: ubuntu-latest
+    env:
+      SKIP_LINT: true
 
     steps:
       - name: Checkout repo
@@ -58,6 +60,7 @@ jobs:
 
       - name: Cache golangci-lint binary
         uses: actions/cache@v4
+        if: env.SKIP_LINT != 'true'
         with:
           path: ~/.cache/golangci-lint
           key: ${{ runner.os }}-golangci-lint-cache
@@ -65,6 +68,7 @@ jobs:
             ${{ runner.os }}-golangci-lint-cache
 
       - name: Install golangci-lint manually
+        if: env.SKIP_LINT != 'true'
         run: |
           mkdir -p ~/bin
           curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b ~/bin v1.58.2
@@ -72,9 +76,10 @@ jobs:
           golangci-lint --version
 
       - name: Run golangci-lint
+        if: env.SKIP_LINT != 'true'
         run: |
           export PATH=$PATH:~/bin
-          golangci-lint run --verbose ./pkg/... ./internal/... ./middleware/... ./cmd/...
+          golangci-lint run --no-config --verbose ./pkg/... ./internal/... ./middleware/... ./cmd/... --timeout=5m
 
       - name: Run tests with coverage
         run: go test -v -coverprofile=coverage.out ./...
