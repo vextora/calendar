@@ -1,6 +1,6 @@
 package accesscontrol
 
-import "github.com/casbin/casbin/v2"
+import casbin "github.com/casbin/casbin/v2"
 
 type AccessChecker struct {
 	enforcer *casbin.Enforcer
