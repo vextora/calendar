@@ -1,0 +1,41 @@
+version: "1"
+
+run:
+  timeout: 2m
+  tests: true
+  skip-dirs:
+    - vendor
+    - tmp
+    - tempo-data
+    - coverage
+  skip-files:
+    - ".*_test.go"
+
+linters:
+  enable:
+    - govet
+    - staticcheck
+    - gofmt
+    - goimports
+    - revive
+    - errcheck
+    - unused
+    - typecheck
+
+linters_settings:
+  gofmt:
+    simplify: true
+
+  revive:
+    ignore-generated-header: true
+    severity: warning
+    rules:
+      - name: indent-error-flow
+      - name: var-naming
+      - name: package-comments
+      - name: blank-imports
+
+issues:
+  exclude_use_default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
