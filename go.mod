@@ -1,6 +1,6 @@
 module oncomapi
 
-go 1.24.1
+go 1.22
 
 require (
 	github.com/casbin/casbin/v2 v2.105.0
