@@ -49,6 +49,12 @@ jobs:
 
       - name: Ensure dependencies are resolved
         run: go list ./... > /dev/null
+      
+      - name: Debug casbin / jwt / sentry presence
+        run: |
+          go list -m all | grep casbin || echo "casbin not found"
+          go list -m all | grep jwt || echo "jwt not found"
+          go list -m all | grep sentry || echo "sentry not found"
 
       - name: Install golangci-lint
         run: |
