@@ -12,10 +12,8 @@ linters:
     - staticcheck
     - gosimple
     - unused
-    - deadcode
   disable:
     - gocyclo
-    - megacheck
     - goconst
     - dupl
 
