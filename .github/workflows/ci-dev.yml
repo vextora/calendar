@@ -25,9 +25,9 @@ jobs:
           path: |
             ~/.cache/go-build
             ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          key: ${{ runner.os }}-go-build-${{ hashFiles('**/go.sum') }}
           restore-keys: |
-            ${{ runner.os }}-go-
+            ${{ runner.os }}-go-build-
 
       - name: Download dependencies
         run: go mod download
@@ -60,10 +60,11 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: v1.58.2
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run golangci-lint
         run: |
-          golangci-lint run ./... --verbose --print-issued-lines
+          golangci-lint run --verbose --out-format=github-actions ./...
 
       - name: Run tests with coverage
         run: go test -v -coverprofile=coverage.out ./...
