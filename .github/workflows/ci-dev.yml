@@ -39,6 +39,14 @@ jobs:
         run: |
           git diff --exit-code go.mod go.sum || (echo "go.mod/sum not clean. Run 'go mod tidy'" && exit 1)
 
+      - name: Show all dependencies (debuggin)
+        run: |
+          echo "=== go.mod modules ==="
+          go list -m all
+          echo ""
+          echo "=== go.sum hash files ==="
+          ls -l go.sum || tree
+
       - name: Install golangci-lint
         run: |
           curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
