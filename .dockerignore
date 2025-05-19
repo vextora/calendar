@@ -17,7 +17,6 @@ main
 *.out
 
 # Cache Go
-/pkg
 /go/pkg
 /go/bin
 
