@@ -22,7 +22,7 @@ func ValidateTitle(fl validator.FieldLevel) bool {
 }
 
 func ValidateSlug(fl validator.FieldLevel) bool {
-	re := regexp.MustCompile(`^a-z0-9-]+$`)
+	re := regexp.MustCompile(`^[a-z0-9-]+$`)
 	return re.MatchString(fl.Field().String())
 }
 

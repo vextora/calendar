@@ -57,8 +57,9 @@ jobs:
           go list -m all | grep sentry || echo "sentry not found"
 
       - name: Install golangci-lint
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.56.2
 
       - name: Run golangci-lint
         run: |
