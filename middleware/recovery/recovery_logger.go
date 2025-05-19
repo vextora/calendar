@@ -6,7 +6,7 @@ import (
 	"runtime/debug"
 	"time"
 
-	"github.com/getsentry/sentry-go"
+	sentry "github.com/getsentry/sentry-go"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

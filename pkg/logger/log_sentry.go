@@ -4,7 +4,7 @@ import (
 	"fmt"
 	logs "oncomapi/pkg/logutil"
 
-	"github.com/getsentry/sentry-go"
+	sentry "github.com/getsentry/sentry-go"
 )
 
 func InfoSentry(format string, a ...any) {

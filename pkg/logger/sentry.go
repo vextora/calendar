@@ -4,7 +4,7 @@ import (
 	"oncomapi/pkg/config"
 	"time"
 
-	"github.com/getsentry/sentry-go"
+	sentry "github.com/getsentry/sentry-go"
 	"go.uber.org/zap"
 )
 
