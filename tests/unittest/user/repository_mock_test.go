@@ -23,12 +23,24 @@ func (m *MockUserRepo) Save(user *domain.User) (*domain.User, error) {
 
 func (m *MockUserRepo) FindByID(id int) (*domain.User, error) {
 	args := m.Called(id)
-	return args.Get(0).(*domain.User), args.Error(1)
+
+	var result *domain.User
+	if args.Get(0) != nil {
+		result = args.Get(0).(*domain.User)
+	}
+
+	return result, args.Error(1)
 }
 
 func (m *MockUserRepo) FindByEmail(email string) (*domain.User, error) {
 	args := m.Called(email)
-	return args.Get(0).(*domain.User), args.Error(1)
+
+	var result *domain.User
+	if args.Get(0) != nil {
+		result = args.Get(0).(*domain.User)
+	}
+
+	return result, args.Error(1)
 }
 
 func (m *MockUserRepo) CreateDetail(detail *domain.UserDetail) (*domain.UserDetail, error) {
@@ -38,5 +50,6 @@ func (m *MockUserRepo) CreateDetail(detail *domain.UserDetail) (*domain.UserDeta
 	if args.Get(0) != nil {
 		result = args.Get(0).(*domain.UserDetail)
 	}
+
 	return result, args.Error(1)
 }

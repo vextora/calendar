@@ -3,6 +3,7 @@ package user_test
 import (
 	"errors"
 	"oncomapi/internal/api/v1/user"
+	"oncomapi/internal/api/v1/user/domain"
 	"oncomapi/internal/api/v1/user/dto"
 	"testing"
 
@@ -28,7 +29,7 @@ func TestUserService_Register(t *testing.T) {
 				Detail:   &dto.UserDetailRequest{FullName: "New User", Phone: "08123456789", Address: "Jakarta"},
 			},
 			setupMock: func(m *MockUserRepo) {
-				m.On("FindByEmail", "newuser@mail.com").Return((*user.User)(nil), nil)
+				m.On("FindByEmail", "newuser@mail.com").Return((*domain.User)(nil), nil)
 				m.On("Save", mock.AnythingOfType("*domain.User")).Return(&user.User{ID: 1, Username: "newuser", Email: "newuser@mail.com"}, nil)
 				m.On("CreateDetail", mock.AnythingOfType("*domain.UserDetail")).Return(&user.UserDetail{ID: 1, FullName: "New User", Phone: "08123456789", Address: "Jakarta"}, nil)
 			},
@@ -43,7 +44,7 @@ func TestUserService_Register(t *testing.T) {
 				Password: "password123",
 			},
 			setupMock: func(m *MockUserRepo) {
-				m.On("FindByEmail", "usedemail@mail.com").Return(&user.User{Email: "usedemail@mail.com"}, nil)
+				m.On("FindByEmail", "usedemail@mail.com").Return(&domain.User{Email: "usedemail@mail.com"}, nil)
 			},
 			expected:    nil,
 			expectError: true,
@@ -52,7 +53,7 @@ func TestUserService_Register(t *testing.T) {
 			name:  "FailedToSaveUser",
 			input: &dto.RegisterRequest{Username: "newuser", Email: "newuser@mail.com", Password: "password123"},
 			setupMock: func(m *MockUserRepo) {
-				m.On("FindByEmail", "newuser@mail.com").Return((*user.User)(nil), nil)
+				m.On("FindByEmail", "newuser@mail.com").Return((*domain.User)(nil), nil)
 				m.On("Save", mock.AnythingOfType("*domain.User")).Return(nil, errors.New("failed to save"))
 			},
 			expected:    nil,
@@ -67,7 +68,7 @@ func TestUserService_Register(t *testing.T) {
 				Detail:   &dto.UserDetailRequest{FullName: "New User", Phone: "08123456789", Address: "Jakarta"},
 			},
 			setupMock: func(m *MockUserRepo) {
-				m.On("FindByEmail", "newuser@mail.com").Return((*user.User)(nil), nil)
+				m.On("FindByEmail", "newuser@mail.com").Return((*domain.User)(nil), nil)
 				m.On("Save", mock.AnythingOfType("*domain.User")).Return(&user.User{ID: 1, Username: "newuser", Email: "newuser@mail.com"}, nil)
 				m.On("CreateDetail", mock.AnythingOfType("*domain.UserDetail")).Return(nil, errors.New("failed to create user detail"))
 			},
