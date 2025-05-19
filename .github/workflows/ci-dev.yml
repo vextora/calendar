@@ -56,6 +56,14 @@ jobs:
           go list -m all | grep jwt || echo "jwt not found"
           go list -m all | grep sentry || echo "sentry not found"
 
+      - name: Cache golangci-lint binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/golangci-lint
+          key: ${{ runner.os }}-golangci-lint-cache
+          restore-keys: |
+            ${{ runner.os }}-golangci-lint-cache
+
       - name: Install golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
