@@ -47,6 +47,9 @@ jobs:
           echo "=== go.sum hash files ==="
           ls -l go.sum || tree
 
+      - name: Ensure dependencies are resolved
+        run: go list ./... > /dev/null
+
       - name: Install golangci-lint
         run: |
           curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
