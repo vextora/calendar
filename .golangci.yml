@@ -3,13 +3,6 @@ version: "1"
 run:
   timeout: 2m
   tests: true
-  skip-dirs:
-    - vendor
-    - tmp
-    - tempo-data
-    - coverage
-  skip-files:
-    - ".*_test.go"
 
 linters:
   enable:
@@ -22,7 +15,7 @@ linters:
     - unused
     - typecheck
 
-linters_settings:
+linters-settings:
   gofmt:
     simplify: true
 
@@ -35,7 +28,21 @@ linters_settings:
       - name: package-comments
       - name: blank-imports
 
+  errcheck:
+    exclude-functions:
+      # Tambahkan fungsi yang ingin di-ignore (jika ada)
+      # - fmt.Fprintf
+      # - io.Copy
+
 issues:
-  exclude_use_default: false
+  exclude-dirs:
+    - vendor
+    - tmp
+    - tempo-data
+    - coverage
+
+  exclude-files:
+    - ".*_test.go"
+
   max-issues-per-linter: 0
   max-same-issues: 0
