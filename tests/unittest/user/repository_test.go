@@ -10,22 +10,21 @@ import (
 )
 
 func TestUserRepository(t *testing.T) {
-	mockRepo := MockUserRepo{}
 
 	testFindID := "FindByID"
 	t.Run(testFindID, func(t *testing.T) {
 		tests := []struct {
 			name       string
 			inputID    int
-			setupMock  func()
+			setupMock  func(*MockUserRepo)
 			expectUser *domain.User
 			expectErr  bool
 		}{
 			{
 				name:    "Success",
 				inputID: 1,
-				setupMock: func() {
-					mockRepo.On(testFindID, 1).Return(&domain.User{ID: 1, Username: "oncom"}, nil)
+				setupMock: func(m *MockUserRepo) {
+					m.On(testFindID, 1).Return(&domain.User{ID: 1, Username: "oncom"}, nil)
 				},
 				expectUser: &domain.User{ID: 1, Username: "oncom"},
 				expectErr:  false,
@@ -33,8 +32,8 @@ func TestUserRepository(t *testing.T) {
 			{
 				name:    "UserNotFound",
 				inputID: 2,
-				setupMock: func() {
-					mockRepo.On(testFindID, 2).Return((*domain.User)(nil), errors.New("not found"))
+				setupMock: func(m *MockUserRepo) {
+					m.On(testFindID, 2).Return((*domain.User)(nil), errors.New("not found"))
 				},
 				expectUser: nil,
 				expectErr:  true,
@@ -43,7 +42,9 @@ func TestUserRepository(t *testing.T) {
 
 		for _, tt := range tests {
 			t.Run(tt.name, func(t *testing.T) {
-				tt.setupMock()
+				mockRepo := &MockUserRepo{}
+				tt.setupMock(mockRepo)
+
 				u, err := mockRepo.FindByID(tt.inputID)
 				if tt.expectErr {
 					assert.Error(t, err)
@@ -62,15 +63,15 @@ func TestUserRepository(t *testing.T) {
 		tests := []struct {
 			name        string
 			email       string
-			setupMock   func()
+			setupMock   func(*MockUserRepo)
 			expected    *domain.User
 			expectError bool
 		}{
 			{
 				name:  "Success",
 				email: "oncom@mail.com",
-				setupMock: func() {
-					mockRepo.On(testFindEmail, "oncom@mail.com").Return(&domain.User{Email: "oncom@mail.com"}, nil)
+				setupMock: func(m *MockUserRepo) {
+					m.On(testFindEmail, "oncom@mail.com").Return(&domain.User{Email: "oncom@mail.com"}, nil)
 				},
 				expected:    &domain.User{Email: "oncom@mail.com"},
 				expectError: false,
@@ -78,8 +79,8 @@ func TestUserRepository(t *testing.T) {
 			{
 				name:  "NotFound",
 				email: "x@mail.com",
-				setupMock: func() {
-					mockRepo.On(testFindEmail, "x@mail.com").Return((*domain.User)(nil), errors.New("not found"))
+				setupMock: func(m *MockUserRepo) {
+					m.On(testFindEmail, "x@mail.com").Return((*domain.User)(nil), errors.New("not found"))
 				},
 				expected:    nil,
 				expectError: true,
@@ -88,7 +89,9 @@ func TestUserRepository(t *testing.T) {
 
 		for _, tt := range tests {
 			t.Run(tt.name, func(t *testing.T) {
-				tt.setupMock()
+				mockRepo := &MockUserRepo{}
+				tt.setupMock(mockRepo)
+
 				res, err := mockRepo.FindByEmail(tt.email)
 				if tt.expectError {
 					assert.Error(t, err)
