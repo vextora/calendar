@@ -79,7 +79,7 @@ jobs:
         if: env.SKIP_LINT != 'true'
         run: |
           export PATH=$PATH:~/bin
-          golangci-lint run --no-config --verbose ./pkg/... ./internal/... ./middleware/... ./cmd/... --timeout=5m
+          golangci-lint run --config=.golangci.yml
 
       - name: Run tests with coverage
         run: go test -v -coverprofile=coverage.out ./...
