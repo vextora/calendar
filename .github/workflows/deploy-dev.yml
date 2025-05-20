@@ -25,6 +25,7 @@ jobs:
           -d '{"Username": "'"$PORTAINER_USERNAME"'", "Password": "'"$PORTAINER_PASSWORD"'"}'
         )
         token=$(echo $response | jq -r '.jwt')
+        echo "token: $token"
         echo "token=$token" >> $GITHUB_OUTPUT
       env:
         PORTAINER_URL: ${{ secrets.PORTAINER_URL }}
