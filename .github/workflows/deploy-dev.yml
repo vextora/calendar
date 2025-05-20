@@ -22,7 +22,7 @@ jobs:
         echo "Response from auth:"
         response=$(curl -s -X POST "$PORTAINER_URL/api/auth" \
           -H "Content-Type: application/json" \
-          -d '{"Username": "'"$PORTAINER_USERNAME"'". "Password": "'"$PORTAINER_PASSWORD"'"}'
+          -d '{"Username": "'"$PORTAINER_USERNAME"'", "Password": "'"$PORTAINER_PASSWORD"'"}'
         )
         token=$(echo $response | jq -r '.jwt')
         echo "token=$token" >> $GITHUB_OUTPUT
