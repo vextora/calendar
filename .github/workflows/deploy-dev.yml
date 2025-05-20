@@ -32,10 +32,28 @@ jobs:
         PORTAINER_USERNAME: ${{ secrets.PORTAINER_USERNAME }}
         PORTAINER_PASSWORD: ${{ secrets.PORTAINER_PASSWORD }}
 
+    - name: Test connectivity to Docker Hub Registry
+      run: |
+        echo "Testing connection to Docker Hub Registry..."
+        curl -v https://registry-1.docker.io/v2/ || exit 1
+
     - name: Pull docker image from Docker hub
       run: |
-        curl -s -X POST "$PORTAINER_URL/api/endpoints/$PORTAINER_ENDPOINT_ID/docker/images/create?fromImage=oncomtech/oncomapi&tag=dev" \
-          -H "Authorization: Bearer ${{ steps.auth.outputs.token }}"
+        for i in {1..3}; do
+          response=$(curl -s -X POST "$PORTAINER_URL/api/endpoints/$PORTAINER_ENDPOINT_ID/docker/images/create?fromImage=oncomtech/oncomapi&tag=dev" \
+            -H "Authorization: Bearer ${{ steps.auth.outputs.token }}"
+          )
+          
+          echo "Pull response: $response"
+
+          if echo "$response" | grep -q '"error"'; then
+            echo "Pull failed, retrying ($i)..."
+            sleep 5
+          else
+            echo "Pull successful"
+            break
+          fi
+        done
       env:
         PORTAINER_URL: ${{ secrets.PORTAINER_URL }}
         PORTAINER_ENDPOINT_ID: ${{ secrets.PORTAINER_ENDPOINT_ID }}
