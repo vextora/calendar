@@ -1,21 +1,60 @@
 name: Deploy to Development Server
 
 on:
-  push:
-    branches: [dev]
+  workflow_run:
+    workflows: ["Build Dev Docker image"]
+    types:
+      - completed
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DEV_EC2_HOST }}
-          username: ${{ secrets.DEV_EC2_USER }}
-          key: ${{ secrets.DEV_EC2_SSH_KEY }}
-          script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/oncomapi:dev
-            docker stop oncomapi-dev || true && docker rm oncomapi-dev || true
-            docker run -d --name oncomapi-dev -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/oncomapi:dev
+    - name: Get Portainer JWT
+      id: auth
+      run: |
+        response=$(curl -s -X POST "$PORTAINER_URL/api/auth" \
+          -H "Content-Type: application/json" \
+          -d '{"Username": "'"$PORTAINER_USERNAME"'". "Password": "'"$PORTAINER_PASSWORD"'"}')
+          token=$(echo $response | jq -r '.jwt'        
+        )
+        echo "token=$token" >> $GITHUB_OUTPUT
+      env:
+        PORTAINER_URL: ${{ secrets.PORTAINER_URL }}
+        PORTAINER_USERNAME: ${{ secrets.PORTAINER_USERNAME }}
+        PORTAINER_PASSWORD: ${{ secrets.PORTAINER_PASSWORD }}
+
+    - name: Remove existing container (if exists)
+      run: |
+        curl -s -X DELETE "$PORTAINER_URL/api/endpoints/$PORTAINER_ENDPOINT_ID/docker/containers/oncomapi-dev?force=true" \
+          -H "Authorization: Bearer ${{ steps.auth.outputs.token }}"
+      continue-on-error: true
+      env:
+        PORTAINER_URL: ${{ secrets.PORTAINER_URL }}
+        PORTAINER_ENDPOINT_ID: ${{ secrets.PORTAINER_ENDPOINT_ID }}
+
+    - name: Create and start new container
+      run: |
+        curl -s -X POST "$PORTAINER_URL/api/endpoints/$PORTAINER_ENDPOINT_ID/docker/containers/create?name=oncomapi-dev" \
+          -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "Image": "oncomtech/oncomapi:dev",
+            "HostConfig": {
+              "PortBindings": {
+                "8080/tcp": [{"HostPort": "8080"}]
+              },
+              "RestartPolicy": {
+                "Name": "always"
+              }
+            }
+          }'
+
+        curl -s -X POST "$PORTAINER_URL/api/endpoints/$PORTAINER_ENDPOINT_ID/docker/containers/oncomapi-dev/start" \
+          -H "Authorization: Bearer ${{ steps.auth.outputs.token }}"
+      
+      env:
+        PORTAINER_URL: ${{ secrets.PORTAINER_URL }}
+        PORTAINER_ENDPOINT_ID: ${{ secrets.PORTAINER_ENDPOINT_ID }}
