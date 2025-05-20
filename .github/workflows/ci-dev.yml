@@ -10,7 +10,7 @@ jobs:
   build-test-lint:
     runs-on: ubuntu-latest
     env:
-      SKIP_LINT: true
+      SKIP_LINT: false
 
     steps:
       - name: Checkout repo
@@ -51,7 +51,7 @@ jobs:
 
       - name: Ensure dependencies are resolved
         run: go list ./... > /dev/null
-      
+
       - name: Debug casbin / jwt / sentry presence
         run: |
           go list -m all | grep casbin || echo "casbin not found"
@@ -71,7 +71,7 @@ jobs:
         if: env.SKIP_LINT != 'true'
         run: |
           mkdir -p ~/bin
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b ~/bin v1.58.2
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b ~/bin v1.64.8
           export PATH=$PATH:~/bin
           golangci-lint --version
 

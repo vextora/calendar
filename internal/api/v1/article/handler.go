@@ -43,6 +43,10 @@ func (h *Handler) GetByID(c *gin.Context) {
 	}
 
 	article, err := h.service.GetByID(uint(id))
+	if err != nil {
+		response.SendError(c, http.StatusInternalServerError, err.Error())
+		return
+	}
 	/*if err != nil {
 		logger.ErrorSentry(err, "Gagal ambil article ID %v", id)
 		if appErr, ok := err.(*apperror.AppError); ok {

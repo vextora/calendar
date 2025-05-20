@@ -1,0 +1,21 @@
+run:
+  timeout: "3m"
+  tests: true
+
+linters:
+  enable:
+    - govet
+    - unused
+    - gofmt
+    - gosimple
+  disable:
+    - errcheck
+    - gocyclo
+    - funlen
+    - staticcheck
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck

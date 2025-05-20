@@ -1,5 +1,5 @@
 package dto
 
 type AuditlogResponse struct {
-	ID      uint   `json:"id"`
+	ID uint `json:"id"`
 }

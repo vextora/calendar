@@ -1,5 +1,5 @@
 package domain
 
 type Oncom struct {
-	ID      uint   `json:"id" gorm:"primaryKey;autoIncrement"`
+	ID uint `json:"id" gorm:"primaryKey;autoIncrement"`
 }

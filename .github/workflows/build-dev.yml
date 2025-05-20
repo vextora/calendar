@@ -1,10 +1,11 @@
 name: Build Dev Docker image
 
 on:
-  workflow_run:
-    workflows: ["CI Dev"]
-    types:
-      - completed
+  workflow_dispatch:
+  #workflow_run:
+    #workflows: ["CI Dev"]
+    #types:
+    #  - completed
 
 jobs:
   build:

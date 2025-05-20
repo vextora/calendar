@@ -36,7 +36,7 @@ func NewEnforcer(db *gorm.DB) (*casbin.Enforcer, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	enforcer, err := casbin.NewEnforcer(m, adapter)
 	if err != nil {
 		return nil, err

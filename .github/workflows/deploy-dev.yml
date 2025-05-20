@@ -1,10 +1,11 @@
 name: Deploy to Development Server
 
 on:
-  workflow_run:
-    workflows: ["Build Dev Docker image"]
-    types:
-      - completed
+  workflow_dispatch:
+  #workflow_run:
+    #workflows: ["Build Dev Docker image"]
+    #types:
+    #  - completed
 
 jobs:
   deploy:

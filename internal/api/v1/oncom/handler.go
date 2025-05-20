@@ -1,8 +1,8 @@
 package oncom
 
 import (
-	"net/http"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 type OncomHandler struct {
@@ -10,7 +10,7 @@ type OncomHandler struct {
 }
 
 func NewOncomHandler(oncomService Service) *OncomHandler {
-	return &OncomHandler{ oncomService: oncomService }
+	return &OncomHandler{oncomService: oncomService}
 }
 
 func (h *OncomHandler) Init(c *gin.Context) {
