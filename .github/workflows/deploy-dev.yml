@@ -32,6 +32,14 @@ jobs:
         PORTAINER_USERNAME: ${{ secrets.PORTAINER_USERNAME }}
         PORTAINER_PASSWORD: ${{ secrets.PORTAINER_PASSWORD }}
 
+    - name: Pull docker image from Docker hub
+      run: |
+        curl -s -X POST "$PORTAINER_URL/api/endpoints/$PORTAINER_ENDPOINT_ID/docker/images/create?fromImage=oncomtech/oncomapi&tag=dev" \
+          -H "Authorization: Bearer ${{ steps.auth.outputs.token }}"
+      env:
+        PORTAINER_URL: ${{ secrets.PORTAINER_URL }}
+        PORTAINER_ENDPOINT_ID: ${{ secrets.PORTAINER_ENDPOINT_ID }}
+
     - name: Remove existing container (if exists)
       run: |
         curl -s -X DELETE "$PORTAINER_URL/api/endpoints/$PORTAINER_ENDPOINT_ID/docker/containers/oncomapi-dev?force=true" \
