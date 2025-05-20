@@ -1,11 +1,14 @@
 name: Build Dev Docker image
 
 on:
-  push:
-    branches: [dev]
+  workflow_run:
+    workflows: ["CI Dev"]
+    types:
+      - completed
 
 jobs:
   build:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:

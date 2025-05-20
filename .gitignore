@@ -11,6 +11,7 @@
 .env
 .env.development
 .env.override
+.env.development.bkp
 
 # Binary output folder
 /tmp/
