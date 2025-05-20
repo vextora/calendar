@@ -3,46 +3,45 @@ name: Build Dev Docker image
 on:
   workflow_dispatch:
   #workflow_run:
-    #workflows: ["CI Dev"]
-    #types:
-    #  - completed
+  #workflows: ["CI Dev"]
+  #types:
+  #  - completed
 
 jobs:
   build:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup Docker Tags
-      id: vars
-      run: |
-        echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
-        echo "ref_name=${GITHUB_REF##*/}" >> "$GITHUB_OUTPUT"
+      - name: Setup Docker Tags
+        id: vars
+        run: |
+          echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+          echo "ref_name=${GITHUB_REF##*/}" >> "$GITHUB_OUTPUT"
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: Cache Docker layers
-      uses: actions/cache@v4
-      with: 
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-buildx-
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
-    - name: Log in to Dockerhub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      - name: Log in to Dockerhub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-    - name: Build Docker image with multiple tags (multi-platform)
-      run: |
-        docker buildx build \
-        --platform linux/amd64,linux/arm64 \
-        -f Dockerfile.dev.sample \
-        -t ${{ secrets.DOCKER_USERNAME }}/oncomapi:dev-${{ steps.vars.outputs.sha_short }} \
-        -t ${{ secrets.DOCKER_USERNAME }}/oncomapi:dev \
-        -t ${{ secrets.DOCKER_USERNAME }}/oncomapi:${{ steps.vars.outputs.ref_name }} \
-        --cache-from type=local,src=/tmp/.buildx-cache \
-        --cache-to type=local,dest=/tmp/.buildx-cache,mode=max \
-        --push .
+      - name: Build Docker image with multiple tags (multi-platform)
+        run: |
+          docker buildx build \
+          --platform linux/amd64,linux/arm64 \
+          -f Dockerfile.dev.sample \
+          -t ${{ secrets.DOCKER_USERNAME }}/oncomapi:dev-${{ steps.vars.outputs.sha_short }} \
+          -t ${{ secrets.DOCKER_USERNAME }}/oncomapi:dev \
+          -t ${{ secrets.DOCKER_USERNAME }}/oncomapi:${{ steps.vars.outputs.ref_name }} \
+          --cache-from type=local,src=/tmp/.buildx-cache \
+          --cache-to type=local,dest=/tmp/.buildx-cache,mode=max \
+          --push .
