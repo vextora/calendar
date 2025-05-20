@@ -98,11 +98,11 @@ func main() {
 
 	// Initialize Gin and middleware
 	r := gin.New()
-	//r.Use(gin.Logger())
+	////r.Use(gin.Logger())
 	r.Use(cors.CorsMiddleware())                       // CORS
 	r.Use(securityheaders.SecurityHeadersMiddleware()) // Security headers
 	r.Use(observability.TraceMiddleware())             // Trace ID for log
-	//r.Use(recovery.RecoveryWithZapAndSentry())                   // Panic recovery + log to Zap & Sentry
+	////r.Use(recovery.RecoveryWithZapAndSentry())                   // Panic recovery + log to Zap & Sentry
 	r.Use(logger.ZapRequestLogger())                             // Start log request
 	r.Use(ratelimit.NewRateLimiterHandler(limiter).Middleware()) // Rate limiting (Redis + Lua)
 	r.Use(observability.PrometheusMiddleware())                  // Prometheus metrics

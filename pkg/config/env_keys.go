@@ -5,12 +5,12 @@ const (
 	AppName     = "APP_NAME"
 	AppPort     = "APP_PORT"
 
-	PostgreDbHost     = "POSTGRE_DB_HOST"
-	PostgreDbPort     = "POSTGRE_DB_PORT"
-	PostgreDbUser     = "POSTGRE_DB_USER"
-	PostgreDbPassword = "POSTGRE_DB_PASSWORD"
-	PostgreDbSsl      = "POSTGRE_DB_SSL"
-	PostgreDbName     = "POSTGRE_DB_NAME"
+	PostgreDbHost     = "POSTGRES_HOST"
+	PostgreDbPort     = "POSTGRES_PORT"
+	PostgreDbUser     = "POSTGRES_USER"
+	PostgreDbPassword = "POSTGRES_PASSWORD"
+	PostgreDbSsl      = "POSTGRES_SSL"
+	PostgreDbName     = "POSTGRES_DB"
 
 	SentryDsn = "SENTRY_DSN"
 
