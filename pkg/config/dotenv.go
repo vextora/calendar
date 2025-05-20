@@ -11,6 +11,8 @@ func InitDotenv() {
 	viper.SetConfigType("env")
 	viper.AddConfigPath(".")
 
+	viper.AutomaticEnv()
+
 	// Load default (.env) => assume as base config production
 	viper.SetConfigName(".env")
 	if err := viper.MergeInConfig(); err != nil {
