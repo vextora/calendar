@@ -3,7 +3,7 @@ package validation
 import (
 	"net/http"
 
-	"oncomapi/pkg/response"
+	"calendarapi/pkg/response"
 
 	"log"
 

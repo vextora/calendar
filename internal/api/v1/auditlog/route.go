@@ -1,4 +1,4 @@
 package auditlog
 
-// "oncomapi/middleware/auth"
-// "oncomapi/pkg/jwt"
+// "calendarapi/middleware/auth"
+// "calendarapi/pkg/jwt"

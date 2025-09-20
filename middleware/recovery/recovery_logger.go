@@ -1,8 +1,8 @@
 package recovery
 
 import (
+	"calendarapi/pkg/logger"
 	"net/http"
-	"oncomapi/pkg/logger"
 	"runtime/debug"
 	"time"
 

@@ -1,5 +1,6 @@
 package routerloader
 
 import (
-	_ "oncomapi/internal/api/v1/oncom"
+	_ "calendarapi/internal/api/v1/calendars"
+	_ "calendarapi/internal/api/v1/events"
 )

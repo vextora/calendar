@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func JsonResponse(code int, status string, data interface{}, message interface{}) map[string]interface{} {
-	return map[string]interface{}{
+func JsonResponse(code int, status string, data any, message any) map[string]any {
+	return map[string]any{
 		"code":    code,
 		"status":  status,
 		"data":    data,
@@ -15,23 +15,23 @@ func JsonResponse(code int, status string, data interface{}, message interface{}
 	}
 }
 
-func Success(data interface{}, message string) map[string]interface{} {
+func Success(data any, message string) map[string]any {
 	return JsonResponse(http.StatusOK, http.StatusText(http.StatusOK), data, message)
 }
 
-func Error(code int, message interface{}) map[string]interface{} {
+func Error(code int, message any) map[string]any {
 	return JsonResponse(code, http.StatusText(code), struct{}{}, message)
 }
 
-func SingleMessage(message string) map[string]interface{} {
+func SingleMessage(message string) map[string]any {
 	return JsonResponse(http.StatusOK, http.StatusText(http.StatusOK), struct{}{}, map[string]string{"message": message})
 }
 
-func ValidationError(message map[string]string) map[string]interface{} {
+func ValidationError(message map[string]string) map[string]any {
 	return JsonResponse(http.StatusBadRequest, "Bad Request", struct{}{}, message)
 }
 
-func SendError(c *gin.Context, code int, msg interface{}) {
+func SendError(c *gin.Context, code int, msg any) {
 	if msgStr, ok := msg.(string); ok {
 		c.JSON(code, Error(code, msgStr))
 	} else {
@@ -39,7 +39,7 @@ func SendError(c *gin.Context, code int, msg interface{}) {
 	}
 }
 
-func SendSuccess(c *gin.Context, data interface{}, message ...string) {
+func SendSuccess(c *gin.Context, data any, message ...string) {
 	msg := ""
 	if len(message) > 0 {
 		msg = message[0]

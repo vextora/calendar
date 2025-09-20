@@ -1,8 +1,8 @@
 package user_test
 
 import (
-	"oncomapi/internal/api/v1/user"
-	"oncomapi/internal/api/v1/user/dto"
+	"calendarapi/internal/api/v1/user"
+	"calendarapi/internal/api/v1/user/dto"
 
 	"github.com/stretchr/testify/mock"
 )

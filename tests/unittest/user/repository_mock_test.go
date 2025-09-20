@@ -1,7 +1,7 @@
 package user_test
 
 import (
-	"oncomapi/internal/api/v1/user/domain"
+	"calendarapi/internal/api/v1/user/domain"
 
 	"github.com/stretchr/testify/mock"
 )

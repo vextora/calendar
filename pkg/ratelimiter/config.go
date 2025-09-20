@@ -1,6 +1,6 @@
 package ratelimiter
 
-import "oncomapi/pkg/config"
+import "calendarapi/pkg/config"
 
 type Config struct {
 	ReqPerSecond int

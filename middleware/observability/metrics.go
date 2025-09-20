@@ -1,7 +1,7 @@
 package observability
 
 import (
-	"oncomapi/pkg/observability/metrics"
+	"calendarapi/pkg/observability/metrics"
 	"strconv"
 	"time"
 

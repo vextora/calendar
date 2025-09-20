@@ -1,9 +1,9 @@
 package tracing
 
 import (
+	"calendarapi/pkg/config"
 	"context"
 	"fmt"
-	"oncomapi/pkg/config"
 	"strings"
 
 	"go.opentelemetry.io/otel"

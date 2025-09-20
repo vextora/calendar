@@ -1,8 +1,8 @@
 package user_test
 
 import (
+	"calendarapi/internal/api/v1/user/domain"
 	"errors"
-	"oncomapi/internal/api/v1/user/domain"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

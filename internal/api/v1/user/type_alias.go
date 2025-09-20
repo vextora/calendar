@@ -1,6 +1,6 @@
 package user
 
-import "oncomapi/internal/api/v1/user/domain"
+import "calendarapi/internal/api/v1/user/domain"
 
 type (
 	User       = domain.User

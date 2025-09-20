@@ -1,6 +1,6 @@
 package auditlog
 
-import "oncomapi/internal/api/v1/auditlog/domain"
+import "calendarapi/internal/api/v1/auditlog/domain"
 
 type (
 	AuditLog   = domain.AuditLog

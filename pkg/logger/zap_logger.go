@@ -1,9 +1,9 @@
 package logger
 
 import (
+	"calendarapi/pkg/config"
+	"calendarapi/pkg/shared"
 	"log"
-	"oncomapi/pkg/config"
-	"oncomapi/pkg/shared"
 	"time"
 
 	sentry "github.com/getsentry/sentry-go"

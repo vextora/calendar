@@ -1,6 +1,6 @@
 package domain
 
-import "oncomapi/internal/api/v1/user/dto"
+import "calendarapi/internal/api/v1/user/dto"
 
 type Service interface {
 	Register(input *dto.RegisterRequest) (*User, error)

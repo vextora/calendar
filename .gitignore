@@ -26,6 +26,7 @@ vendor/
 # IDE/editor config
 .vscode/
 .idea/
+.DS_Store
 *.swp
 *.swo
 

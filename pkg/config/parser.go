@@ -1,7 +1,7 @@
 package config
 
 import (
-	logs "oncomapi/pkg/logutil"
+	logs "calendarapi/pkg/logutil"
 	"strconv"
 
 	"github.com/spf13/viper"

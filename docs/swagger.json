@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is the API documentation for OncomAPI.",
-        "title": "OncomAPI",
+        "description": "This is the API documentation for calendarapi.",
+        "title": "calendarapi",
         "contact": {},
         "version": "1.0"
     },

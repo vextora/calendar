@@ -1,8 +1,8 @@
 package cors
 
 import (
+	pkgcors "calendarapi/pkg/cors"
 	"net/http"
-	pkgcors "oncomapi/pkg/cors"
 
 	"github.com/gin-gonic/gin"
 )

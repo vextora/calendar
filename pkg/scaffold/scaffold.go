@@ -92,7 +92,7 @@ func appendImportToRouter(api, version, entity string) error {
 	entityLower := strings.ToLower(entity)
 	versionLower := strings.ToLower(version)
 
-	importPath := fmt.Sprintf("\t_ \"oncomapi/internal/%s/%s/%s\"", apiVersion, versionLower, entityLower)
+	importPath := fmt.Sprintf("\t_ \"calendarapi/internal/%s/%s/%s\"", apiVersion, versionLower, entityLower)
 	importFile := "routerloader/imports.go"
 
 	contentBytes, err := ioutil.ReadFile(importFile)

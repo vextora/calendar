@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"strings"
 
-	"oncomapi/internal/api/v1/user"
-	"oncomapi/pkg/jwt"
-	"oncomapi/pkg/response"
-	"oncomapi/pkg/shared"
+	"calendarapi/internal/api/v1/user"
+	"calendarapi/pkg/jwt"
+	"calendarapi/pkg/response"
+	"calendarapi/pkg/shared"
 
 	"github.com/gin-gonic/gin"
 )

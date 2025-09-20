@@ -1,8 +1,8 @@
 package observability
 
 import (
-	"oncomapi/pkg/config"
-	"oncomapi/pkg/shared"
+	"calendarapi/pkg/config"
+	"calendarapi/pkg/shared"
 
 	"github.com/gin-gonic/gin"
 	"go.opentelemetry.io/otel"

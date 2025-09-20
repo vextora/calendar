@@ -1,8 +1,8 @@
 package logger
 
 import (
+	logs "calendarapi/pkg/logutil"
 	"fmt"
-	logs "oncomapi/pkg/logutil"
 
 	sentry "github.com/getsentry/sentry-go"
 )

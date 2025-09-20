@@ -1,9 +1,9 @@
 package seeder
 
 import (
-	"oncomapi/internal/api/v1/user"
-	"oncomapi/internal/api/v1/user/dto"
-	logs "oncomapi/pkg/logutil"
+	"calendarapi/internal/api/v1/user"
+	"calendarapi/internal/api/v1/user/dto"
+	logs "calendarapi/pkg/logutil"
 
 	"gorm.io/gorm"
 )
@@ -17,7 +17,7 @@ func seedUser(db *gorm.DB) {
 	db.Model([]user.User{}).Count(&count)
 
 	if count > 0 {
-		logs.Info("Data exist, skip seeding")
+		logs.Warn("User data exist, skip seeding")
 		return
 	}
 

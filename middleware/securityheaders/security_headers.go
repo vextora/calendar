@@ -1,8 +1,8 @@
 package securityheaders
 
 import (
-	"oncomapi/pkg/config"
-	"oncomapi/pkg/securityheader"
+	"calendarapi/pkg/config"
+	"calendarapi/pkg/securityheader"
 
 	"github.com/gin-gonic/gin"
 )

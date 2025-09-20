@@ -1,10 +1,10 @@
 package user
 
 import (
+	"calendarapi/internal/api/v1/user/dto"
+	"calendarapi/pkg/response"
+	"calendarapi/pkg/validation"
 	"net/http"
-	"oncomapi/internal/api/v1/user/dto"
-	"oncomapi/pkg/response"
-	"oncomapi/pkg/validation"
 
 	"github.com/gin-gonic/gin"
 )

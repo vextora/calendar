@@ -1,8 +1,8 @@
 package main
 
 import (
+	"calendarapi/pkg/scaffold"
 	"fmt"
-	"oncomapi/pkg/scaffold"
 	"os"
 )
 

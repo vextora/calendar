@@ -1,9 +1,9 @@
 package {{.EntityLower}}
 
 import (
-	// "oncomapi/middleware/auth"
-	// "oncomapi/pkg/jwt"
-	"oncomapi/pkg/router"
+	// "calendarapi/middleware/auth"
+	// "calendarapi/pkg/jwt"
+	"calendarapi/pkg/router"
 
 	"github.com/gin-gonic/gin"
 )

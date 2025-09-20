@@ -1,10 +1,10 @@
 package user
 
 import (
+	"calendarapi/internal/api/v1/user/dto"
+	"calendarapi/pkg/hash"
+	"calendarapi/pkg/jwt"
 	"errors"
-	"oncomapi/internal/api/v1/user/dto"
-	"oncomapi/pkg/hash"
-	"oncomapi/pkg/jwt"
 )
 
 type userService struct {

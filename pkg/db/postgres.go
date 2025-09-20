@@ -1,9 +1,9 @@
 package db
 
 import (
+	"calendarapi/pkg/config"
+	logs "calendarapi/pkg/logutil"
 	"fmt"
-	"oncomapi/pkg/config"
-	logs "oncomapi/pkg/logutil"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

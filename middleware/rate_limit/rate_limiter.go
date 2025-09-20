@@ -1,10 +1,10 @@
 package ratelimit
 
 import (
+	logs "calendarapi/pkg/logutil"
+	"calendarapi/pkg/ratelimiter"
+	"calendarapi/pkg/response"
 	"net/http"
-	logs "oncomapi/pkg/logutil"
-	"oncomapi/pkg/ratelimiter"
-	"oncomapi/pkg/response"
 	"strconv"
 	"time"
 

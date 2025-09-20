@@ -2,11 +2,11 @@ package auditlogger
 
 import (
 	"bytes"
+	"calendarapi/internal/api/v1/auditlog"
+	"calendarapi/pkg/shared"
 	"encoding/json"
 	"fmt"
 	"io"
-	"oncomapi/internal/api/v1/auditlog"
-	"oncomapi/pkg/shared"
 	"strings"
 	"time"
 

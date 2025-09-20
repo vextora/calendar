@@ -1,6 +1,6 @@
 package {{.EntityLower}}
 
-import "oncomapi/internal/{{.ApiPrefix}}/{{.Version}}/{{.EntityLower}}/domain"
+import "calendarapi/internal/{{.ApiPrefix}}/{{.Version}}/{{.EntityLower}}/domain"
 
 type (
 	{{.Entity}} = domain.{{.Entity}}

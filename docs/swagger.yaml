@@ -28,32 +28,32 @@ definitions:
 host: localhost:8080
 info:
   contact: {}
-  description: This is the API documentation for OncomAPI.
-  title: OncomAPI
+  description: This is the API documentation for calendarapi.
+  title: calendarapi
   version: "1.0"
 paths:
   /articles:
     get:
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
           schema:
             items:
-              $ref: '#/definitions/dto.ArticleResponse'
+              $ref: "#/definitions/dto.ArticleResponse"
             type: array
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/response.ErrorResponse'
+            $ref: "#/definitions/response.ErrorResponse"
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: Get all articles
       tags:
-      - Article
+        - Article
 securityDefinitions:
   BearerAuth:
     description: Type "Bearer" followed by a space and JWT token.

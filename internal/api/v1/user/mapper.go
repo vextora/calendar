@@ -1,6 +1,6 @@
 package user
 
-import "oncomapi/internal/api/v1/user/dto"
+import "calendarapi/internal/api/v1/user/dto"
 
 func DetailResponse(data *User) dto.UserResponse {
 	res := dto.UserResponse{

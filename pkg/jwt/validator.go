@@ -1,6 +1,6 @@
 package jwt
 
-import "oncomapi/pkg/shared"
+import "calendarapi/pkg/shared"
 
 type jwtValidator struct{}
 

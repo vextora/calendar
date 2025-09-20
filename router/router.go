@@ -1,14 +1,14 @@
 package router
 
 import (
+	"calendarapi/internal/api/v1/auditlog"
+	"calendarapi/internal/app"
+	"calendarapi/middleware/auditlogger"
+	"calendarapi/pkg/observability/metrics"
+	"calendarapi/pkg/router"
 	"fmt"
-	"oncomapi/internal/api/v1/auditlog"
-	"oncomapi/internal/app"
-	"oncomapi/middleware/auditlogger"
-	"oncomapi/pkg/observability/metrics"
-	"oncomapi/pkg/router"
 
-	_ "oncomapi/routerloader"
+	_ "calendarapi/routerloader"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"

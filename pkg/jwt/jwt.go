@@ -1,8 +1,8 @@
 package jwt
 
 import (
+	"calendarapi/pkg/config"
 	"errors"
-	"oncomapi/pkg/config"
 	"time"
 
 	jwtlib "github.com/golang-jwt/jwt/v5"

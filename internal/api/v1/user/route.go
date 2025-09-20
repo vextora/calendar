@@ -1,7 +1,7 @@
 package user
 
 import (
-	"oncomapi/pkg/router"
+	"calendarapi/pkg/router"
 
 	"github.com/gin-gonic/gin"
 )
